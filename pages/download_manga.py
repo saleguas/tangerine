@@ -11,6 +11,7 @@ from pathlib import Path
 def get_folder_size(download_path):
     root_directory = Path(download_path)
     return sum(f.stat().st_size for f in root_directory.glob('**/*') if f.is_file())
+
 def check_download_progress(total_chapters, download_path):
     chapter_amount = len(os.listdir(download_path))
     # get the size in mb of the folder

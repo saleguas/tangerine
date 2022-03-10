@@ -16,7 +16,7 @@ st.title("Data Storyteller Application")
 
 # Add all your applications (pages) here
 app.add_page("Download a series", download_manga.app)
-app.add_page("Update a series", update_series.app)
+app.add_page("Update a series", update_manga.app)
 
 # The main app
 app.run()
