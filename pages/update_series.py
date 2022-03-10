@@ -13,6 +13,7 @@ import download_manga
 
 def find_missing_chapters(local_url, manga_url):
     total_chapters = download_manga.get_total_chapters(manga_url)
+    
 def check_download_progress(total_chapters, download_path):
     pass
 
