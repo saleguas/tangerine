@@ -81,7 +81,7 @@ def app():
     st.markdown('## Download a Webtoon Series')
     st.markdown('This app will download a series from [webtoons.com](https://webtoons.com)')
     container = st.container()
-    manga_url = container.text_input("Enter the MangaSee123 URL", "https://mangasee123.com/manga/Tokyo-Revengers")
+    manga_url = container.text_input("Enter the webtoon URL", "https://mangasee123.com/manga/Tokyo-Revengers")
     download_path = container.text_input("Enter the download path", settings.LIBRARY_PATH)
     start_button = st.button("Start Download")
     if start_button:
