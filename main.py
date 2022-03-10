@@ -5,6 +5,8 @@ sys.path.append(os.path.abspath('pages'))
 
 from pages import download_manga
 from pages import update_manga
+from pages import download_webtoon
+#from pages import update_webtoon
 from multipage import MultiPage
 # Define the multipage class to manage the multiple apps in our program
 
@@ -20,3 +22,5 @@ app.add_page("Update a series", update_manga.app)
 
 # The main app
 app.run()
+
+# C:\Users\user\Documents\GitHub\tangerine\
