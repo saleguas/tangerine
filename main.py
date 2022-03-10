@@ -17,10 +17,8 @@ app = MultiPage()
 st.title("Data Storyteller Application")
 
 # Add all your applications (pages) here
-app.add_page("Download a Manga Series", download_manga.app)
-app.add_page("Update a Manga Series", update_manga.app)
-app.add_page("Download a Webtoon Series", download_webtoon.app)
-#app.add_page("Update a Webtoon Series", update_webtoon.app)
+app.add_page("Download a series", download_manga.app)
+app.add_page("Update a series", update_manga.app)
 
 # The main app
 app.run()
