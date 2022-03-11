@@ -57,10 +57,10 @@ def download_series(url, raw_path, container):
     # for c in iter(lambda: process.stdout.read(1), b''):
     #     sys.stdout.buffer.write(c)
     raw_path = os.path.abspath(raw_path)
-    print(raw_path)
+    print('----------------------------------',raw_path)
     process = subprocess.Popen('manga-py "{}" -d "{}"'.format(url, raw_path), stdout=subprocess.PIPE)
     download_path = get_download_path(url, raw_path)
-    os.mkdir(download_path)
+    #os.mkdir(download_path)
     total_chapters = get_chapter_amount(url)
     progress = check_download_progress(total_chapters, download_path)
 

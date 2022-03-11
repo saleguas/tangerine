@@ -73,7 +73,7 @@ def update_series(manga_url, local_url, container):
             logtxtbox.text_area("Logging: ", logtxt, height=500)
             time.sleep(1)
 
-update_series('https://mangasee123.com/manga/Tokyo-Revengers', '../Tokyo-Revengers', st)
+#update_series('https://mangasee123.com/manga/Tokyo-Revengers', '../Tokyo-Revengers', st)
 
 def app():
     st.markdown('## Update a Series')

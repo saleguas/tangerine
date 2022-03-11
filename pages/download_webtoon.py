@@ -49,10 +49,11 @@ def download_webtoon_series(url, raw_path, container):
     logtxt = 'Downloading ' + url.split('/')[-2] + '...\n'
     logtxtbox.text_area("Logging: ", logtxt, height=500)
     raw_path = os.path.abspath(raw_path)
-    process = subprocess.Popen('python ./webtoon_download/src/webtoon_downloader.py "{}" --dest "{}"'.format(url, raw_path), stdout=subprocess.PIPE)
-    #total_chapters = get_chapter_amount(url)
+    print('-----------------------------',raw_path)
     download_path = get_download_path(url, raw_path)
     os.mkdir(download_path)
+    process = subprocess.Popen('python ./webtoon_download/src/webtoon_downloader.py "{}" --dest "{}" --seperate'.format(url, download_path), stdout=subprocess.PIPE)
+    #total_chapters = get_chapter_amount(url)
     total_chapters = 9
     progress = check_download_progress(total_chapters, download_path)
 
