@@ -1,0 +1,6 @@
+Collecting rich
+  Using cached rich-12.0.0-py3-none-any.whl (224 kB)
+Requirement already satisfied: commonmark<0.10.0,>=0.9.0 in c:\users\user\appdata\local\programs\python\python310\lib\site-packages (from rich) (0.9.1)
+Requirement already satisfied: pygments<3.0.0,>=2.6.0 in c:\users\user\appdata\local\programs\python\python310\lib\site-packages (from rich) (2.11.2)
+Installing collected packages: rich
+Successfully installed rich-12.0.0

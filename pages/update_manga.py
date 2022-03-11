@@ -25,7 +25,7 @@ def find_missing_chapters(local_url, manga_url):
     missing_chapters = [i for i in range(1, total_chapters + 1) if i not in local_chapters]
     return missing_chapters
 
-print(find_missing_chapters('../Tokyo-Revengers', 'https://mangasee123.com/manga/Tokyo-Revengers'))
+#print(find_missing_chapters('../Tokyo-Revengers', 'https://mangasee123.com/manga/Tokyo-Revengers'))
 
 
 def check_download_progress(total_chapters, download_path):

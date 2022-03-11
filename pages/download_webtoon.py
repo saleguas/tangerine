@@ -11,6 +11,7 @@ from pathlib import Path
 def get_folder_size(download_path):
     root_directory = Path(download_path)
     return sum(f.stat().st_size for f in root_directory.glob('**/*') if f.is_file())
+
 def check_download_progress(total_chapters, download_path):
     chapter_amount = len(os.listdir(download_path))
     # get the size in mb of the folder
@@ -32,35 +33,27 @@ def get_chapter_amount(url):
         soup = soup[1:]
     if soup[-1] == '0':
         soup = soup[:-1]
-
+    print(soup)
     return soup
 
 
 def get_download_path(url, download_path):
     download_path = os.path.abspath(download_path)
-    folder_name = url.split('/')[-1]
+    folder_name = url.split('/')[-2]
     download_path = os.path.join(download_path, folder_name)
     return download_path
 
 
 def download_webtoon_series(url, raw_path, container):
     logtxtbox = container.empty()
-    logtxt = 'Downloading ' + url.split('/')[-1] + '...\n'
+    logtxt = 'Downloading ' + url.split('/')[-2] + '...\n'
     logtxtbox.text_area("Logging: ", logtxt, height=500)
-    # for i in range(10000):
-    #     logtxt = logtxt + '\n' + str(i)
-    #     logtxtbox.text_area("Logging: ", logtxt, height = 500)
-    #     time.sleep(1)
-
-
-    # for c in iter(lambda: process.stdout.read(1), b''):
-    #     sys.stdout.buffer.write(c)
     raw_path = os.path.abspath(raw_path)
-    print(raw_path)
-    process = subprocess.Popen('manga-py "{}" -d "{}"'.format(url, raw_path), stdout=subprocess.PIPE)
+    process = subprocess.Popen('python ./webtoon_download/src/webtoon_downloader.py "{}" --dest "{}"'.format(url, raw_path), stdout=subprocess.PIPE)
+    #total_chapters = get_chapter_amount(url)
     download_path = get_download_path(url, raw_path)
     os.mkdir(download_path)
-    total_chapters = get_chapter_amount(url)
+    total_chapters = 9
     progress = check_download_progress(total_chapters, download_path)
 
     while progress[1] < int(total_chapters):
@@ -81,13 +74,11 @@ def app():
     st.markdown('## Download a Webtoon Series')
     st.markdown('This app will download a series from [webtoons.com](https://webtoons.com)')
     container = st.container()
-    manga_url = container.text_input("Enter the webtoon URL", "https://mangasee123.com/manga/Tokyo-Revengers")
+    manga_url = container.text_input("Enter the webtoon URL", "https://www.webtoons.com/en/thriller/pigpen/list?title_no=2275")
     download_path = container.text_input("Enter the download path", settings.LIBRARY_PATH)
     start_button = st.button("Start Download")
     if start_button:
         download_webtoon_series(manga_url, download_path, container)
 
-# print(get_chapter_amount('https://mangasee123.com/manga/Kimetsu-No-Yaiba'))
-# print(get_chapter_amount('https://mangasee123.com/manga/One-Piece'))
-# download_series('https://mangasee123.com/manga/Kimetsu-No-Yaiba', '.', '')
-# sudo manga-py "$url"
+
+#python ./webtoon_download/src/webtoon_downloader.py "https://www.webtoons.com/en/thriller/pigpen/list?title_no=2275"
