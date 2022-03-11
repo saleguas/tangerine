@@ -23,18 +23,12 @@ def check_download_progress(total_chapters, download_path):
 
 def get_chapter_amount(url):
     r = requests.get(url)
-    soup = r.text
-    soup = soup.split('vm.Chapters = [{')[1]
-    soup = soup.split(':"')[1]
-    soup = soup.split('",')[0]
-    if soup[:2] == '10':
-        soup = soup[2:]
-    else:
-        soup = soup[1:]
-    if soup[-1] == '0':
-        soup = soup[:-1]
-    print(soup)
-    return soup
+    val = r.text
+    index = val.find('<li id="episode_')
+    val = val[index:]
+    val = val.split('<li id="episode_')
+    val = val[1].split('"')
+    return int(val[0])
 
 
 def get_download_path(url, download_path):
@@ -53,8 +47,7 @@ def download_webtoon_series(url, raw_path, container):
     download_path = get_download_path(url, raw_path)
     os.mkdir(download_path)
     process = subprocess.Popen('python ./webtoon_download/src/webtoon_downloader.py "{}" --dest "{}" --seperate'.format(url, download_path), stdout=subprocess.PIPE)
-    #total_chapters = get_chapter_amount(url)
-    total_chapters = 9
+    total_chapters = get_chapter_amount(url)
     progress = check_download_progress(total_chapters, download_path)
 
     while progress[1] < int(total_chapters):
