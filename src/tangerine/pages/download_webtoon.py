@@ -3,7 +3,7 @@ import subprocess
 import requests
 import time
 import streamlit as st
-from src import settings
+from src.tangerine import settings
 from pathlib import Path
 
 
@@ -48,8 +48,9 @@ def download_webtoon_series(url, raw_path, container):
     os.mkdir(download_path)
 
     program_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'webtoon_download', 'webtoon_downloader.py'))
+    command = 'python "{}" "{}" --dest "{}" --seperate'.format(program_path, url, download_path)
     process = subprocess.Popen(
-        'python "{}" "{}" --dest "{}" --seperate'.format(program_path, url, download_path),
+        command,
         stdout=subprocess.PIPE)
     total_chapters = get_chapter_amount(url)
     progress = check_download_progress(total_chapters, download_path)
