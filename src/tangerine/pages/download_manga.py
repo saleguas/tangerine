@@ -61,12 +61,16 @@ def download_series(url, raw_path, container):
     command = 'manga-py "{}" -d "{}"'.format(url, raw_path)
 
     total_chapters = get_chapter_amount(url)
+    # download_path = get_download_path(url, raw_path)
+
     with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
-        # write the name of the series, the command, the type of download, and the path to the series
+        # write series name, series url, download path, download type, total chapters,
         f.write(url.split('/')[-1] + ',')
-        f.write(command + ',')
-        f.write('MD' + ',')
-        f.write(str(total_chapters) + '\n')
+        f.write(url + ',')
+        f.write(raw_path + ',')
+        f.write('MD,')
+        f.write(total_chapters + ',')
+        f.write(command + '\n')
 
 
     # process = subprocess.Popen(command, stdout=subprocess.PIPE)
