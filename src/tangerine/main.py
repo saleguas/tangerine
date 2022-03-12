@@ -1,7 +1,7 @@
 import streamlit as st
 import sys, os
 
-sys.path.append(os.path.abspath('..'))
+sys.path.append(os.path.abspath('.'))
 sys.path.append(os.path.abspath('pages'))
 
 from pages import download_manga
@@ -10,14 +10,18 @@ from pages import download_webtoon
 from pages import download_manager
 # from pages import update_webtoon
 from multipage import MultiPage
+import settings
 
 # Define the multipage class to manage the multiple apps in our program
 
+scheduler = settings.make_scheduler(1)
 
 app = MultiPage()
-
+st.set_page_config(
+    layout="centered",
+)
 # Title of the main page
-st.title("Data Storyteller Application")
+st.title("Tangerine")
 
 # Add all your applications (pages) here
 app.add_page("Download a Manga", download_manga.app)

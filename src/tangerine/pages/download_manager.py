@@ -12,8 +12,9 @@ def app():
     # Get the list of all pending downloads
     tasks = pd.read_csv(settings.DOWNLOAD_QUEUE_FILE, header=None)
     # drop the 2nd column
-    tasks.columns = ["Series Name", "Series ID", "Task Type"]
+    tasks.columns = ["Series Name", "Series ID", "Task Type", "Progress"]
     tasks = tasks.drop(columns=["Series ID"])
+    tasks['Progress'] = tasks['Progress'].apply(lambda x: "0/{}".format(x))
     print(tasks)
     container.table(tasks)
 

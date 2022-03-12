@@ -1,2 +1,1 @@
-Tokyo-Revengers,manga-py "https://mangasee123.com/manga/Tokyo-Revengers" -d "C:\Users\drale\Documents\GitHub\tangerine\src\tangerine",MD
-pigpen,python "C:\Users\drale\Documents\GitHub\tangerine\src\tangerine\pages\webtoon_download\webtoon_downloader.py" "https://www.webtoons.com/en/thriller/pigpen/list?title_no=2275" --dest "C:\Users\drale\Documents\GitHub\tangerine\src\tangerine\pigpen" --seperate,WD
+Tokyo-Revengers,manga-py "https://mangasee123.com/manga/Tokyo-Revengers" -d "C:\Users\drale\Documents\GitHub\tangerine\src\tangerine\~\library",MD,245
