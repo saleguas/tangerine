@@ -1,14 +1,12 @@
 import os
 import subprocess
 import sys
-import requests
-from bs4 import BeautifulSoup
 import time
-from pathlib import Path
 
 import streamlit as st
-import settings
-sys.path.append(os.path.abspath('.'))
+from src import settings
+
+sys.path.append(os.path.abspath(''))
 import download_manga
 
 def get_local_chapters(local_url):
@@ -73,7 +71,11 @@ def update_series(manga_url, local_url, container):
             logtxtbox.text_area("Logging: ", logtxt, height=500)
             time.sleep(1)
 
+<<<<<<< Updated upstream:pages/update_manga.py
 #update_series('https://mangasee123.com/manga/Tokyo-Revengers', '../Tokyo-Revengers', st)
+=======
+# update_series('https://mangasee123.com/manga/Tokyo-Revengers', '../Tokyo-Revengers', st)
+>>>>>>> Stashed changes:src/pages/update_manga.py
 
 def app():
     st.markdown('## Update a Series')

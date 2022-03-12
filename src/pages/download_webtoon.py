@@ -1,11 +1,9 @@
 import os
 import subprocess
-import sys
 import requests
-from bs4 import BeautifulSoup
 import time
 import streamlit as st
-import settings
+from src import settings
 from pathlib import Path
 
 def get_folder_size(download_path):

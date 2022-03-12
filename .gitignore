@@ -1,4 +1,5 @@
 *.zip
+<<<<<<< Updated upstream
 /Tokyo-Revengers/
 ~/library/Tokyo-Revengers/vol_001-1.zip
 ~/library/Tokyo-Revengers/vol_002-1.zip
@@ -15,3 +16,6 @@
 ~/library/Tokyo-Revengers/vol_012-5.zip
 ~/library/Tokyo-Revengers/vol_013-1.zip
 *.zip
+=======
+/src/Tokyo-Revengers/
+>>>>>>> Stashed changes

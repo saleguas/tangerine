@@ -1,10 +1,9 @@
 import os
 import subprocess
-import sys
 import requests
-from bs4 import BeautifulSoup
 import time
 import streamlit as st
+
 import settings
 from pathlib import Path
 
@@ -57,8 +56,14 @@ def download_series(url, raw_path, container):
     # for c in iter(lambda: process.stdout.read(1), b''):
     #     sys.stdout.buffer.write(c)
     raw_path = os.path.abspath(raw_path)
+<<<<<<< Updated upstream:pages/download_manga.py
     print('----------------------------------',raw_path)
     process = subprocess.Popen('manga-py "{}" -d "{}"'.format(url, raw_path), stdout=subprocess.PIPE)
+=======
+    print(raw_path)
+    command = 'manga-py "{}" -d "{}"'.format(url, raw_path)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE)
+>>>>>>> Stashed changes:src/pages/download_manga.py
     download_path = get_download_path(url, raw_path)
     #os.mkdir(download_path)
     total_chapters = get_chapter_amount(url)
