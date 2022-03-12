@@ -3,7 +3,7 @@ import subprocess
 import requests
 import time
 import streamlit as st
-from src.tangerine import settings
+import settings
 from pathlib import Path
 
 
@@ -49,23 +49,29 @@ def download_webtoon_series(url, raw_path, container):
 
     program_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'webtoon_download', 'webtoon_downloader.py'))
     command = 'python "{}" "{}" --dest "{}" --seperate'.format(program_path, url, download_path)
-    process = subprocess.Popen(
-        command,
-        stdout=subprocess.PIPE)
-    total_chapters = get_chapter_amount(url)
-    progress = check_download_progress(total_chapters, download_path)
+    with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
+        # write the name of the series, the command, the type of download, and the path to the series
+        f.write(url.split('/')[-2] + ',')
+        f.write(command + ',')
+        f.write('WD' + '\n')
 
-    while progress[1] < int(total_chapters):
-        progress = check_download_progress(total_chapters, download_path)
-        if "{}/{}".format(progress[1], total_chapters) in logtxt:
-            pass
-        else:
-            logtxt = logtxt + '\n' + progress[0]
-            logtxtbox.text_area("Logging: ", logtxt, height=500)
-            print(progress[0])
-        time.sleep(1)
-    logtxt = logtxt + '\n' + 'Download Complete!'
-    logtxtbox.text_area("Logging: ", logtxt, height=500)
+    # process = subprocess.Popen(
+    #     command,
+    #     stdout=subprocess.PIPE)
+    # total_chapters = get_chapter_amount(url)
+    # progress = check_download_progress(total_chapters, download_path)
+    #
+    # while progress[1] < int(total_chapters):
+    #     progress = check_download_progress(total_chapters, download_path)
+    #     if "{}/{}".format(progress[1], total_chapters) in logtxt:
+    #         pass
+    #     else:
+    #         logtxt = logtxt + '\n' + progress[0]
+    #         logtxtbox.text_area("Logging: ", logtxt, height=500)
+    #         print(progress[0])
+    #     time.sleep(1)
+    # logtxt = logtxt + '\n' + 'Download Complete!'
+    # logtxtbox.text_area("Logging: ", logtxt, height=500)
 
 
 def app():

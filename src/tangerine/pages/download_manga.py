@@ -58,26 +58,31 @@ def download_series(url, raw_path, container):
     #     sys.stdout.buffer.write(c)
     raw_path = os.path.abspath(raw_path)
     print('----------------------------------', raw_path)
-    process = subprocess.Popen('manga-py "{}" -d "{}"'.format(url, raw_path), stdout=subprocess.PIPE)
-    print(raw_path)
     command = 'manga-py "{}" -d "{}"'.format(url, raw_path)
-    process = subprocess.Popen(command, stdout=subprocess.PIPE)
-    download_path = get_download_path(url, raw_path)
-    # os.mkdir(download_path)
-    total_chapters = get_chapter_amount(url)
-    progress = check_download_progress(total_chapters, download_path)
+    with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
+        # write the name of the series, the command, the type of download, and the path to the series
+        f.write(url.split('/')[-1] + ',')
+        f.write(command + ',')
+        f.write('MD' + '\n')
 
-    while progress[1] < int(total_chapters):
-        progress = check_download_progress(total_chapters, download_path)
-        if "{}/{}".format(progress[1], total_chapters) in logtxt:
-            pass
-        else:
-            logtxt = logtxt + '\n' + progress[0]
-            logtxtbox.text_area("Logging: ", logtxt, height=500)
-            print(progress[0])
-        time.sleep(1)
-    logtxt = logtxt + '\n' + 'Download Complete!'
-    logtxtbox.text_area("Logging: ", logtxt, height=500)
+
+    # process = subprocess.Popen(command, stdout=subprocess.PIPE)
+    # download_path = get_download_path(url, raw_path)
+    # # os.mkdir(download_path)
+    # total_chapters = get_chapter_amount(url)
+    # progress = check_download_progress(total_chapters, download_path)
+    #
+    # while progress[1] < int(total_chapters):
+    #     progress = check_download_progress(total_chapters, download_path)
+    #     if "{}/{}".format(progress[1], total_chapters) in logtxt:
+    #         pass
+    #     else:
+    #         logtxt = logtxt + '\n' + progress[0]
+    #         logtxtbox.text_area("Logging: ", logtxt, height=500)
+    #         print(progress[0])
+    #     time.sleep(1)
+    # logtxt = logtxt + '\n' + 'Download Complete!'
+    # logtxtbox.text_area("Logging: ", logtxt, height=500)
 
 
 def app():

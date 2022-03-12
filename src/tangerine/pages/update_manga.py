@@ -4,7 +4,7 @@ import sys
 import time
 
 import streamlit as st
-from src.tangerine import settings
+import settings
 
 sys.path.append(os.path.abspath(''))
 import download_manga
