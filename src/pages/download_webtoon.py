@@ -6,9 +6,11 @@ import streamlit as st
 from src import settings
 from pathlib import Path
 
+
 def get_folder_size(download_path):
     root_directory = Path(download_path)
     return sum(f.stat().st_size for f in root_directory.glob('**/*') if f.is_file())
+
 
 def check_download_progress(total_chapters, download_path):
     chapter_amount = len(os.listdir(download_path))
@@ -41,10 +43,14 @@ def download_webtoon_series(url, raw_path, container):
     logtxt = 'Downloading ' + url.split('/')[-2] + '...\n'
     logtxtbox.text_area("Logging: ", logtxt, height=500)
     raw_path = os.path.abspath(raw_path)
-    print('-----------------------------',raw_path)
+    print('-----------------------------', raw_path)
     download_path = get_download_path(url, raw_path)
     os.mkdir(download_path)
-    process = subprocess.Popen('python ./webtoon_download/src/webtoon_downloader.py "{}" --dest "{}" --seperate'.format(url, download_path), stdout=subprocess.PIPE)
+
+    program_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'webtoon_download', 'webtoon_downloader.py'))
+    process = subprocess.Popen(
+        'python "{}" "{}" --dest "{}" --seperate'.format(program_path, url, download_path),
+        stdout=subprocess.PIPE)
     total_chapters = get_chapter_amount(url)
     progress = check_download_progress(total_chapters, download_path)
 
@@ -61,16 +67,15 @@ def download_webtoon_series(url, raw_path, container):
     logtxtbox.text_area("Logging: ", logtxt, height=500)
 
 
-
 def app():
     st.markdown('## Download a Webtoon Series')
     st.markdown('This app will download a series from [webtoons.com](https://webtoons.com)')
     container = st.container()
-    manga_url = container.text_input("Enter the webtoon URL", "https://www.webtoons.com/en/thriller/pigpen/list?title_no=2275")
+    manga_url = container.text_input("Enter the webtoon URL",
+                                     "https://www.webtoons.com/en/thriller/pigpen/list?title_no=2275")
     download_path = container.text_input("Enter the download path", settings.LIBRARY_PATH)
     start_button = st.button("Start Download")
     if start_button:
         download_webtoon_series(manga_url, download_path, container)
 
-
-#python ./webtoon_download/src/webtoon_downloader.py "https://www.webtoons.com/en/thriller/pigpen/list?title_no=2275"
+# python ./webtoon_download/src/webtoon_downloader.py "https://www.webtoons.com/en/thriller/pigpen/list?title_no=2275"

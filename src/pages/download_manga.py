@@ -7,9 +7,11 @@ import streamlit as st
 import settings
 from pathlib import Path
 
+
 def get_folder_size(download_path):
     root_directory = Path(download_path)
     return sum(f.stat().st_size for f in root_directory.glob('**/*') if f.is_file())
+
 
 def check_download_progress(total_chapters, download_path):
     chapter_amount = len(os.listdir(download_path))
@@ -52,20 +54,16 @@ def download_series(url, raw_path, container):
     #     logtxtbox.text_area("Logging: ", logtxt, height = 500)
     #     time.sleep(1)
 
-
     # for c in iter(lambda: process.stdout.read(1), b''):
     #     sys.stdout.buffer.write(c)
     raw_path = os.path.abspath(raw_path)
-<<<<<<< Updated upstream:pages/download_manga.py
-    print('----------------------------------',raw_path)
+    print('----------------------------------', raw_path)
     process = subprocess.Popen('manga-py "{}" -d "{}"'.format(url, raw_path), stdout=subprocess.PIPE)
-=======
     print(raw_path)
     command = 'manga-py "{}" -d "{}"'.format(url, raw_path)
     process = subprocess.Popen(command, stdout=subprocess.PIPE)
->>>>>>> Stashed changes:src/pages/download_manga.py
     download_path = get_download_path(url, raw_path)
-    #os.mkdir(download_path)
+    # os.mkdir(download_path)
     total_chapters = get_chapter_amount(url)
     progress = check_download_progress(total_chapters, download_path)
 
@@ -80,7 +78,6 @@ def download_series(url, raw_path, container):
         time.sleep(1)
     logtxt = logtxt + '\n' + 'Download Complete!'
     logtxtbox.text_area("Logging: ", logtxt, height=500)
-
 
 
 def app():

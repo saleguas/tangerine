@@ -9,6 +9,7 @@ from src import settings
 sys.path.append(os.path.abspath(''))
 import download_manga
 
+
 def get_local_chapters(local_url):
     files = os.listdir(local_url)
     # get only the chapter numbers from name like vol_001-1.zip to 1
@@ -22,6 +23,7 @@ def find_missing_chapters(local_url, manga_url):
     # find which chapters are missing
     missing_chapters = [i for i in range(1, total_chapters + 1) if i not in local_chapters]
     return missing_chapters
+
 
 def clean_download_chapters(chapters):
     # find start chapter and length of ascending list of chapters
@@ -38,15 +40,17 @@ def clean_download_chapters(chapters):
     result.append((chapters[-counter], counter))
     return result
 
+
 def format_download_command(chapter_start, chapter_length, manga_url, local_url):
     # get folder name of local url
     local_url = os.path.dirname(local_url)
-    command = 'manga-py --skip-volumes {} --max-volumes {} {} -d {}'.format(chapter_start, chapter_length, manga_url, local_url)
+    command = 'manga-py --skip-volumes {} --max-volumes {} {} -d {}'.format(chapter_start, chapter_length, manga_url,
+                                                                            local_url)
     return command
+
 
 def check_download_progress(total_chapters, download_path):
     pass
-
 
     # logtxtbox = container.empty()
     # logtxt = 'Downloading ' + url.split('/')[-1] + '...\n'
@@ -55,6 +59,8 @@ def check_download_progress(total_chapters, download_path):
     #     logtxt = logtxt + '\n' + str(i)
     #     logtxtbox.text_area("Logging: ", logtxt, height = 500)
     #     time.sleep(1)
+
+
 def update_series(manga_url, local_url, container):
     logtxtbox = container.empty()
     logtxt = 'Downloading ' + manga_url.split('/')[-1] + '...\n'
@@ -71,15 +77,14 @@ def update_series(manga_url, local_url, container):
             logtxtbox.text_area("Logging: ", logtxt, height=500)
             time.sleep(1)
 
-<<<<<<< Updated upstream:pages/update_manga.py
-#update_series('https://mangasee123.com/manga/Tokyo-Revengers', '../Tokyo-Revengers', st)
-=======
+
 # update_series('https://mangasee123.com/manga/Tokyo-Revengers', '../Tokyo-Revengers', st)
->>>>>>> Stashed changes:src/pages/update_manga.py
+# update_series('https://mangasee123.com/manga/Tokyo-Revengers', '../Tokyo-Revengers', st)
 
 def app():
     st.markdown('## Update a Series')
-    st.markdown('This app will update a series of manga from a given url. This means it will download any mising chapters, including new releases.')
+    st.markdown(
+        'This app will update a series of manga from a given url. This means it will download any mising chapters, including new releases.')
     container = st.container()
     local_url = container.text_input("Enter the local manga URL", "{}Tokyo-Revengers".format(settings.LIBRARY_PATH))
     manga_url = container.text_input("Enter the MangaSee123 URL", "https://mangasee123.com/manga/Tokyo-Revengers")

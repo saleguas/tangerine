@@ -5,6 +5,7 @@ sys.path.append(os.path.abspath('pages'))
 
 from pages import download_manga
 from pages import update_manga
+from pages import download_webtoon
 #from pages import update_webtoon
 from multipage import MultiPage
 # Define the multipage class to manage the multiple apps in our program
