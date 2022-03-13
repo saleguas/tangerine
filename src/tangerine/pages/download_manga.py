@@ -59,6 +59,7 @@ def download_series(url, raw_path, container):
     raw_path = os.path.abspath(raw_path)
     print('----------------------------------', raw_path)
     command = 'manga-py "{}" -d "{}"'.format(url, raw_path)
+    series_download_path = os.path.join(raw_path, url.split('/')[-1])
 
     total_chapters = get_chapter_amount(url)
     # download_path = get_download_path(url, raw_path)
@@ -67,7 +68,7 @@ def download_series(url, raw_path, container):
         # write series name, series url, download path, download type, total chapters,
         f.write(url.split('/')[-1] + ',')
         f.write(url + ',')
-        f.write(raw_path + ',')
+        f.write(series_download_path + ',')
         f.write('MD,')
         f.write(total_chapters + ',')
         f.write(command + ',\n')

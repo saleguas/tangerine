@@ -39,21 +39,21 @@ def get_download_path(url, download_path):
 
 
 def download_webtoon_series(url, raw_path, container):
-    logtxtbox = container.empty()
-    logtxt = 'Downloading ' + url.split('/')[-2] + '...\n'
-    logtxtbox.text_area("Logging: ", logtxt, height=500)
     raw_path = os.path.abspath(raw_path)
-    print('-----------------------------', raw_path)
     download_path = get_download_path(url, raw_path)
-    os.mkdir(download_path)
 
     program_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'webtoon_download', 'webtoon_downloader.py'))
     command = 'python "{}" "{}" --dest "{}" --seperate'.format(program_path, url, download_path)
     with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
-        # write the name of the series, the command, the type of download, and the path to the series
+        # series_name, series_url, download_path, download_type, total_chapters, command
         f.write(url.split('/')[-2] + ',')
-        f.write(command + ',')
-        f.write('WD' + '\n')
+        f.write(url + ',')
+        f.write(download_path + ',')
+        f.write('WD,')
+        f.write(str(get_chapter_amount(url)) + ',')
+        f.write(command + ',\n')
+
+
 
     # process = subprocess.Popen(
     #     command,
