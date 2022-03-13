@@ -30,6 +30,9 @@ def fill_folder(amt, folder):
         with open(os.path.join(folder, 'vol_{}-1.zip'.format(file_name)), 'w') as f:
             f.write('test')
 
+# fill_folder(248, '../Tokyo-Revengers')
+
+# 115, 125
 def chapify_folder(folder_path):
     # turn each folder into a zip with name chapter_number
     for folder in os.listdir(folder_path):
@@ -106,6 +109,8 @@ def app():
     print(tasks)
     container.table(tasks)
 
+if __name__ == '__main__':
+    download_request()
 
 
 

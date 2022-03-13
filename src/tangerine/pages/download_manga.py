@@ -63,7 +63,6 @@ def download_series(url, raw_path, container):
 
     total_chapters = get_chapter_amount(url)
     # download_path = get_download_path(url, raw_path)
-
     with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
         # write series name, series url, download path, download type, total chapters,
         f.write(url.split('/')[-1] + ',')

@@ -44,7 +44,7 @@ def clean_download_chapters(chapters):
 def format_download_command(chapter_start, chapter_length, manga_url, local_url):
     # get folder name of local url
     local_url = os.path.dirname(local_url)
-    command = 'manga-py --skip-volumes {} --max-volumes {} {} -d {}'.format(chapter_start, chapter_length, manga_url,
+    command = 'manga-py --skip-volumes {} --max-volumes {} "{}" -d "{}"'.format(chapter_start, chapter_length, manga_url,
                                                                             local_url)
     return command
 
@@ -66,16 +66,20 @@ def update_series(manga_url, local_url, container):
     logtxt = 'Downloading ' + manga_url.split('/')[-1] + '...\n'
     logtxtbox.text_area("Logging: ", logtxt, height=500)
 
+    local_url = os.path.abspath(local_url)
     chapters_to_download = find_missing_chapters(local_url, manga_url)
     cleaned_chapters = clean_download_chapters(chapters_to_download)
     print(cleaned_chapters)
     for chapter_start, chapter_length in cleaned_chapters:
         command = format_download_command(chapter_start, chapter_length, manga_url, local_url)
-        process = subprocess.Popen(command, stdout=subprocess.PIPE)
-        for line in iter(process.stdout.readline, b''):
-            logtxt = logtxt + line.decode('utf-8')
-            logtxtbox.text_area("Logging: ", logtxt, height=500)
-            time.sleep(1)
+        with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
+            # series_name, series_url, download_path, download_type, total_chapters, command
+            f.write(manga_url.split('/')[-1] + ',')
+            f.write(manga_url + ',')
+            f.write(local_url + ',')
+            f.write('MU,')
+            f.write(get_local_chapters(local_url) + chapter_length + ',')
+            f.write(command + ',\n')
 
 
 # update_series('https://mangasee123.com/manga/Tokyo-Revengers', '../Tokyo-Revengers', st)
