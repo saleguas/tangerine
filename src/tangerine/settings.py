@@ -2,15 +2,30 @@ import os, sys
 import time
 import atexit
 import subprocess
-sys.path.append(os.path.abspath('.'))
-sys.path.append(os.path.abspath('pages'))
-import download_manga
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
 LIBRARY_PATH = '~/library/'
 DOWNLOAD_QUEUE_FILE = os.path.abspath(os.path.join(os.path.dirname(__file__), 'download_queue.csv'))
 
+def check_download_finished(total_chapters, download_path):
+    chapter_amount = len(os.listdir(download_path))
+    # get the size in mb of the folder
+    print(chapter_amount, total_chapters)
+    print(chapter_amount == total_chapters)
+    return int(chapter_amount) == int(total_chapters)
+
+def fill_folder(amt, folder):
+    for i in range(amt):
+        file_name = i
+        if i < 10:
+            file_name = '0' + str(i)
+        if i < 100:
+            file_name = '0' + str(i)
+        with open(os.path.join(folder, 'vol_{}-1.zip'.format(file_name)), 'w') as f:
+            f.write('test')
+
+fill_folder(os.path.abspath("pigpen"))
 def download_request():
     # check to see if download_queue has any items
     # if so, download the first item
@@ -23,30 +38,25 @@ def download_request():
             # write series name, series url, download path, download type, total chapters,
 
             series_name, series_url, download_path, download_type, total_chapters,command = line[0], line[1], line[2], line[3], line[4], line[5]
+            series_download_path = os.path.join(download_path, series_name)
+            print(series_url)
+            print(command)
+            process = subprocess.Popen(command, stdout=subprocess.PIPE)
+            if not os.path.exists(download_path):
+                os.makedirs(download_path)
+            progress = check_download_finished(total_chapters, series_download_path)
+            while not progress:
+                progress = check_download_finished(total_chapters, series_download_path)
+                time.sleep(5)
+    with open (DOWNLOAD_QUEUE_FILE, 'w') as f:
+        for line in lines[1:]:
+            f.write(line)
 
-            # process = subprocess.Popen(command, stdout=subprocess.PIPE)
-            # download_path = download_manga.get_download_path(url, raw_path)
-            # # os.mkdir(download_path)
-            # total_chapters = download_manga.get_chapter_amount(url)
-            # progress = download_manga.check_download_progress(total_chapters, download_path)
-            #
-            # while progress[1] < int(total_chapters):
-            #     progress = download_manga.check_download_progress(total_chapters, download_path)
-            #     if "{}/{}".format(progress[1], total_chapters) in logtxt:
-            #         pass
-            #     else:
-            #         logtxt = logtxt + '\n' + progress[0]
-            #         logtxtbox.text_area("Logging: ", logtxt, height=500)
-            #         print(progress[0])
-            #     time.sleep(1)
-            # logtxt = logtxt + '\n' + 'Download Complete!'
-            # logtxtbox.text_area("Logging: ", logtxt, height=500)
-
-
+download_request()
 
 def make_scheduler(seconds):
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=print_date_time, trigger="interval", seconds=seconds)
+    scheduler.add_job(func=download_request, trigger="interval", seconds=seconds)
     scheduler.start()
 
     # Shut down the scheduler when exiting the app

@@ -14,7 +14,7 @@ import settings
 
 # Define the multipage class to manage the multiple apps in our program
 
-scheduler = settings.make_scheduler(1)
+scheduler = settings.make_scheduler(5)
 
 app = MultiPage()
 st.set_page_config(

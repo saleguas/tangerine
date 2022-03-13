@@ -70,7 +70,7 @@ def download_series(url, raw_path, container):
         f.write(raw_path + ',')
         f.write('MD,')
         f.write(total_chapters + ',')
-        f.write(command + '\n')
+        f.write(command + ',\n')
 
 
     # process = subprocess.Popen(command, stdout=subprocess.PIPE)
