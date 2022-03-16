@@ -52,54 +52,11 @@ def chapify_folder(folder_path):
             except Exception as e:
                 print(e)
     # remove the folders
-    time.sleep(15)
+    time.sleep(5)
     for folder in os.listdir(folder_path):
         if os.path.isdir(os.path.join(folder_path, folder)):
             shutil.rmtree(os.path.join(folder_path, folder))
 
-
-def _zip(fulldname, delete_after=False):
-    """
-    Zip a directory
-
-    :param fulldname: The full name of the directory
-    :type fulldname: str
-    :param delete_after: Delete the directory after it has been zipped?
-    :type delete_after: bool
-    :return: the name of the zip file
-    :rtype: str
-    """
-    if not os.path.isdir(fulldname):
-        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT),
-                                fulldname)
-    temp_name = os.path.basename(fulldname)
-    if int(temp_name) < 10:
-        temp_name = '0' + str(temp_name)
-    if int(temp_name) < 100:
-        temp_name = '0' + str(temp_name)
-    temp_name = 'vol_{}-1.zip'.format(temp_name)
-    fullzipfname = os.path.join(os.path.dirname(fulldname), temp_name)
-    # print(fullzipfname)
-    with zipfile.ZipFile(fullzipfname, "w", zipfile.ZIP_DEFLATED) as zipf:
-        for root, dirs, files in os.walk(fulldname):
-            for _dir in dirs:
-                zipf.write(os.path.join(root, _dir),
-                           os.path.relpath(os.path.join(root, _dir),
-                                           os.path.join(fulldname)))
-            for file in files:
-                zipf.write(os.path.join(root, file),
-                           os.path.relpath(os.path.join(root, file),
-                                           os.path.join(fulldname)))
-    print(f"Created zip directory {fullzipfname}")
-    if delete_after:
-        for root, dirs, files in os.walk(fulldname, topdown=False):
-            for file in files:
-                os.remove(os.path.join(root, file))
-            for _dir in dirs:
-                os.rmdir(os.path.join(root, _dir))
-        os.rmdir(fulldname)
-        print(f"Removed original directory {fulldname}")
-    return fullzipfname.split(os.path.sep)[-1]
 
 def download_request():
     # check to see if download_queue has any items
@@ -123,8 +80,8 @@ def download_request():
                 progress = check_download_finished(total_chapters, series_download_path, download_type)
                 time.sleep(5)
 
-            # if download_type == 'WD':
-            #     chapify_folder(series_download_path)
+            if download_type == 'WD':
+                chapify_folder(series_download_path)
 
             with open (settings.DOWNLOAD_QUEUE_FILE, 'w') as f:
                 for line in lines[1:]:
