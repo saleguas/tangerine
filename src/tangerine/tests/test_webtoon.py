@@ -20,7 +20,7 @@ def clear_test_dir():
             print(e)
 
 def test_get_chapter_amount():
-    from download_manga import get_chapter_amount
+    from download_webtoon import get_chapter_amount
     url = 'https://www.webtoons.com/en/romance/til-debt-do-us-part/list?title_no=3115'
 
     assert get_chapter_amount(url) == 9
@@ -68,4 +68,4 @@ def test_update_webtoon():
 
 
 if __name__ == "__main__":
-    test_update_webtoon()
+    test_find_missing_chapters()

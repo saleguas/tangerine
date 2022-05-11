@@ -41,7 +41,7 @@ def test_download_manga():
     # get the output
 
     downloaded_path = os.path.join(download_path, "full-Moon")
-    assert len(os.listdir(downloaded_path)) == 3
+    assert len(os.listdir(downloaded_path)) == 6
     clear_test_dir()
 
 def test_missing_chapters():
@@ -78,4 +78,4 @@ def test_update_manga():
 
 
 if __name__ == "__main__":
-    test_update_manga()
+    test_missing_chapters()
