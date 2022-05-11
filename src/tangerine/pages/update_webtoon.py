@@ -77,7 +77,7 @@ def update_series(manga_url, local_url, container=None):
             f.write(manga_url + ',')
             f.write(local_url + ',')
             f.write('MU,')
-            f.write(get_local_chapters(local_url) + chapter_length + ',')
+            f.write(str(download_webtoon.get_chapter_amount(manga_url)) + ',')
             f.write(command + ',\n')
         commands.append(command)
     return commands
