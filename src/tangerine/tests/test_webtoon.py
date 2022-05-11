@@ -20,7 +20,7 @@ def clear_test_dir():
             print(e)
 
 def test_get_chapter_amount():
-    from download_webtoon import get_chapter_amount
+    from download_manga import get_chapter_amount
     url = 'https://www.webtoons.com/en/romance/til-debt-do-us-part/list?title_no=3115'
 
     assert get_chapter_amount(url) == 9
@@ -36,5 +36,36 @@ def test_download_webtoon():
 
     assert os.path.isdir(os.path.join(local_url, 'short-stories'))
     assert len(os.listdir(os.path.join(local_url, 'short-stories'))) == 15
+
+    clear_test_dir()
+
+def test_find_missing_chapters():
+    from update_webtoon import find_missing_chapters
+    manga_url = 'https://www.webtoons.com/en/challenge/short-stories/list?title_no=270769&page=1'
+    local_url = os.path.abspath(os.path.join(os.path.dirname(__file__), 'update_webtoon_test_dir', 'short-stories'))
+
+    missing_chapters = find_missing_chapters(local_url, manga_url)
+    # print(missing_chapters)
+    assert len(missing_chapters) == 9
+    assert missing_chapters[0] == 4
+
+def test_update_webtoon():
+    from update_webtoon import update_series
+
+    manga_url = 'https://www.webtoons.com/en/challenge/short-stories/list?title_no=270769&page=1'
+    local_url = os.path.join(os.path.dirname(__file__), 'update_webtoon_test_dir', 'short-stories')
+    commands = update_series(manga_url, local_url)
+    for command in commands:
+        process = subprocess.Popen(command, stdout=subprocess.PIPE)
+        process.wait()
+
+    assert len(os.listdir(local_url)) == 15
+    # delete all volumes besides vol_000-cringe.zip and vol_010-cringe.zip
+    for filename in os.listdir(local_url):
+        if filename != 'vol_000-cringe.zip' and filename != 'vol_010-cringe.zip':
+            os.remove(os.path.join(local_url, filename))
+
+
+
 if __name__ == "__main__":
-    test_download_webtoon()
+    test_update_webtoon()

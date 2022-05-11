@@ -40,8 +40,7 @@ def get_download_path(manga_url, download_path):
 def download_webtoon_series(manga_url, local_url):
     download_path = get_download_path(manga_url, local_url)
 
-    program_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'webtoon_download', 'webtoon_downloader.py'))
-    command = 'python "{}" "{}" --dest "{}" --seperate'.format(program_path, manga_url, download_path)
+    command = 'manga-py "{}" -d "{}"'.format(manga_url, local_url)
     with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
         # series_name, series_url, download_path, download_type, total_chapters, command
         f.write(manga_url.split('/')[-2] + ',')
