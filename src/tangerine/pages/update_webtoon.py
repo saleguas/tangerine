@@ -22,8 +22,10 @@ def get_local_chapters(local_url):
 def find_missing_chapters(local_url, manga_url):
     total_chapters = int(download_webtoon.get_chapter_amount(manga_url))
     local_chapters = get_local_chapters(local_url)
+    print(local_chapters)
     # find which chapters are missing
-    missing_chapters = [i for i in range(1, total_chapters + 1) if i not in local_chapters]
+    start = 1 if 0 not in local_chapters else 0
+    missing_chapters = [i for i in range(start, total_chapters + start) if i not in local_chapters]
     return missing_chapters
 
 
@@ -46,7 +48,7 @@ def clean_download_chapters(chapters):
 def format_download_command(chapter_start, chapter_length, manga_url, local_url):
     # get folder name of local url
     local_url = os.path.dirname(local_url)
-    command = 'manga-py --skip-volumes {} --max-volumes {} "{}" -d "{}"'.format(chapter_start-1, chapter_length, manga_url,
+    command = 'manga-py --skip-volumes {} --max-volumes {} "{}" -d "{}"'.format(chapter_start, chapter_length, manga_url,
                                                                             local_url)
     return command
 

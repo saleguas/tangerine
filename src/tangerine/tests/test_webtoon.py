@@ -45,9 +45,9 @@ def test_find_missing_chapters():
     local_url = os.path.abspath(os.path.join(os.path.dirname(__file__), 'update_webtoon_test_dir', 'short-stories'))
 
     missing_chapters = find_missing_chapters(local_url, manga_url)
-    # print(missing_chapters)
-    assert len(missing_chapters) == 9
-    assert missing_chapters[0] == 4
+    print(missing_chapters)
+    assert len(missing_chapters) == 13
+    assert missing_chapters[0] == 1
 
 def test_update_webtoon():
     from update_webtoon import update_series
