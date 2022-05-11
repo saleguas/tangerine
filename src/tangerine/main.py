@@ -1,8 +1,10 @@
 import streamlit as st
 import sys, os
 
-sys.path.append(os.path.abspath('.'))
-sys.path.append(os.path.abspath('pages'))
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# add the path ./pages to the sys.path
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pages'))
+
 
 from pages import download_manga
 from pages import update_manga

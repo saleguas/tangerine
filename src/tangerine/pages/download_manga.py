@@ -28,27 +28,30 @@ def get_chapter_amount(url):
     soup = soup.split('vm.Chapters = [{')[1]
     soup = soup.split(':"')[1]
     soup = soup.split('",')[0]
+    # print(soup)
     if soup[:2] == '10':
         soup = soup[2:]
     else:
         soup = soup[1:]
     if soup[-1] == '0':
         soup = soup[:-1]
+    if soup[0] == '0':
+        soup = soup[1:]
 
     return soup
 
 
-def get_download_path(url, download_path):
-    download_path = os.path.abspath(download_path)
-    folder_name = url.split('/')[-1]
-    download_path = os.path.join(download_path, folder_name)
-    return download_path
+# def get_download_path(url, download_path):
+#     download_path = os.path.abspath(download_path)
+#     folder_name = url.split('/')[-1]
+#     download_path = os.path.join(download_path, folder_name)
+#     return download_path
 
 
-def download_series(url, raw_path, container):
-    logtxtbox = container.empty()
-    logtxt = 'Downloading ' + url.split('/')[-1] + '...\n'
-    logtxtbox.text_area("Logging: ", logtxt, height=500)
+def download_series(url, raw_path, container=None):
+    # logtxtbox = container.empty()
+    # logtxt = 'Downloading ' + url.split('/')[-1] + '...\n'
+    # logtxtbox.text_area("Logging: ", logtxt, height=500)
     # for i in range(10000):
     #     logtxt = logtxt + '\n' + str(i)
     #     logtxtbox.text_area("Logging: ", logtxt, height = 500)
@@ -71,6 +74,8 @@ def download_series(url, raw_path, container):
         f.write('MD,')
         f.write(total_chapters + ',')
         f.write(command + ',\n')
+
+    return command
 
 
     # process = subprocess.Popen(command, stdout=subprocess.PIPE)

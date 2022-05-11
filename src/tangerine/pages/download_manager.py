@@ -105,10 +105,11 @@ def app():
     container = st.container()
     # Get the list of all pending downloads
     tasks = pd.read_csv(settings.DOWNLOAD_QUEUE_FILE, header=None)
+    print(tasks)
     # drop the 2nd column
     # eries_name, series_url, download_path, download_type, total_chapters, command
-    tasks.columns = ["Series Name", "Series URL", "Download Path", "Download type", "Progress", "Command"]
-    tasks = tasks.drop(columns=["Series URL", "Download Path", "Command"])
+    tasks.columns = ["Series Name", "Series URL", "Download Path", "Download type", "Progress", "Command", "Useless"]
+    tasks = tasks.drop(columns=["Series URL", "Download Path", "Command", "Useless"])
     tasks['Progress'] = tasks['Progress'].apply(lambda x: "0/{}".format(x))
     print(tasks)
     container.table(tasks)

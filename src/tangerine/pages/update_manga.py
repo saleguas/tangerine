@@ -6,7 +6,7 @@ import time
 import streamlit as st
 import settings
 
-sys.path.append(os.path.abspath(''))
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import download_manga
 
 
@@ -61,25 +61,30 @@ def check_download_progress(total_chapters, download_path):
     #     time.sleep(1)
 
 
-def update_series(manga_url, local_url, container):
-    logtxtbox = container.empty()
-    logtxt = 'Downloading ' + manga_url.split('/')[-1] + '...\n'
-    logtxtbox.text_area("Logging: ", logtxt, height=500)
+def update_series(manga_url, local_url, container=None):
+    # logtxtbox = container.empty()
+    # logtxt = 'Downloading ' + manga_url.split('/')[-1] + '...\n'
+    # logtxtbox.text_area("Logging: ", logtxt, height=500)
 
     local_url = os.path.abspath(local_url)
     chapters_to_download = find_missing_chapters(local_url, manga_url)
     cleaned_chapters = clean_download_chapters(chapters_to_download)
     print(cleaned_chapters)
+
+    commands = []
     for chapter_start, chapter_length in cleaned_chapters:
-        command = format_download_command(chapter_start, chapter_length, manga_url, local_url)
+        command = format_download_command(chapter_start-1, chapter_length, manga_url, local_url)
         with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
             # series_name, series_url, download_path, download_type, total_chapters, command
             f.write(manga_url.split('/')[-1] + ',')
             f.write(manga_url + ',')
             f.write(local_url + ',')
             f.write('MU,')
-            f.write(get_local_chapters(local_url) + chapter_length + ',')
+            f.write(download_manga.get_chapter_amount(manga_url) + ',')
             f.write(command + ',\n')
+        commands.append(command)
+
+    return commands
 
 
 # update_series('https://mangasee123.com/manga/Tokyo-Revengers', '../Tokyo-Revengers', st)

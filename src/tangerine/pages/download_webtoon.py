@@ -31,27 +31,27 @@ def get_chapter_amount(url):
     return int(val[0])
 
 
-def get_download_path(url, download_path):
-    download_path = os.path.abspath(download_path)
-    folder_name = url.split('/')[-2]
+def get_download_path(manga_url, download_path):
+    folder_name = manga_url.split('/')[-2]
     download_path = os.path.join(download_path, folder_name)
     return download_path
 
 
-def download_webtoon_series(url, raw_path, container):
-    raw_path = os.path.abspath(raw_path)
-    download_path = get_download_path(url, raw_path)
+def download_webtoon_series(manga_url, local_url):
+    download_path = get_download_path(manga_url, local_url)
 
     program_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'webtoon_download', 'webtoon_downloader.py'))
-    command = 'python "{}" "{}" --dest "{}" --seperate'.format(program_path, url, download_path)
+    command = 'python "{}" "{}" --dest "{}" --seperate'.format(program_path, manga_url, download_path)
     with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
         # series_name, series_url, download_path, download_type, total_chapters, command
-        f.write(url.split('/')[-2] + ',')
-        f.write(url + ',')
+        f.write(manga_url.split('/')[-2] + ',')
+        f.write(manga_url + ',')
         f.write(download_path + ',')
         f.write('WD,')
-        f.write(str(get_chapter_amount(url)) + ',')
+        f.write(str(get_chapter_amount(manga_url)) + ',')
         f.write(command + ',\n')
+
+    return command
 
 
 

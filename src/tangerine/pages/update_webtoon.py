@@ -4,8 +4,8 @@ import sys
 import time
 
 import streamlit as st
-sys.path.append(os.path.abspath('.'))
-sys.path.append(os.path.abspath('..'))
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 
 import settings
 
