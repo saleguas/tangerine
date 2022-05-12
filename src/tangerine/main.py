@@ -10,7 +10,7 @@ from pages import download_manga
 from pages import update_manga
 from pages import download_webtoon
 from pages import download_manager
-# from pages import update_webtoon
+from pages import update_webtoon
 from multipage import MultiPage
 import settings
 
@@ -29,6 +29,8 @@ st.title("Tangerine")
 app.add_page("Download a Manga", download_manga.app)
 app.add_page("Update a Manga", update_manga.app)
 app.add_page("Download a Webtoon", download_webtoon.app)
+app.add_page("Update a Webtoon", update_webtoon.app)
+
 app.add_page("View Downloader Manager", download_manager.app)
 
 # app.add_page("Update a Webtoon series", update_webtoon.app)
