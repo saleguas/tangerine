@@ -74,12 +74,13 @@ def download_request():
             print(command)
             if not os.path.exists(series_download_path):
                 os.makedirs(series_download_path)
-            # process = subprocess.Popen(command, stdout=subprocess.PIPE)
+            process = subprocess.Popen(command, stdout=subprocess.PIPE)
+            process.wait()
 
 
-            # with open (settings.DOWNLOAD_QUEUE_FILE, 'w') as f:
-            #     for line in lines[1:]:
-            #         f.write(line)
+            with open (settings.DOWNLOAD_QUEUE_FILE, 'w') as f:
+                for line in lines[1:]:
+                    f.write(line)
 
 # chapify_folder('../pigpen')
 
@@ -98,11 +99,14 @@ def app():
     st.markdown('View all pending downloads and status here')
     container = st.container()
     # Get the list of all pending downloads
-    tasks = pd.read_csv(settings.DOWNLOAD_QUEUE_FILE, header=None)
-    print(tasks)
+    with open (settings.DOWNLOAD_QUEUE_FILE, 'r') as f:
+        lines = f.readlines()
+
     # drop the 2nd column
     # eries_name, series_url, download_path, download_type, total_chapters, command
-    try:
+    if len(lines) > 0:
+        tasks = pd.read_csv(settings.DOWNLOAD_QUEUE_FILE, header=None)
+        print(tasks)
         tasks.columns = ["Series Name", "Series URL", "Download Path", "Download type", "Progress", "Command", "Current"]
         # tasks = tasks.drop(columns=["Series URL", "Download Path", "Command"])
         # set current to the amount of chapters downloaded
@@ -116,8 +120,7 @@ def app():
         print(tasks)
         tasks = tasks.drop(columns=["Series URL", "Download Path", "Command", "Current"])
         container.table(tasks)
-    except Exception as e:
-        print(e)
+    else:
         st.write("No downloads pending.")
 
 if __name__ == '__main__':
