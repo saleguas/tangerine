@@ -17,6 +17,9 @@ def clear_test_dir():
     # remove all files in the test_dir
     for filename in os.listdir(download_path):
         file_path = os.path.join(download_path, filename)
+        # if name of file is "file" skip it
+        if filename == "file":
+            continue
         try:
             if os.path.isfile(file_path):
                 os.unlink(file_path)
