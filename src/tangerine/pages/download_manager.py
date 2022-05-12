@@ -118,7 +118,7 @@ def app():
             tasks.loc[index] = row
             print("Progress for {}: {}".format(row['Series Name'], row['Progress']))
         print(tasks)
-        tasks = tasks.drop(columns=["Series URL", "Download Path", "Command", "Current"])
+        tasks = tasks.drop(columns=["Series URL", "Command", "Current"])
         container.table(tasks)
     else:
         st.write("No downloads pending.")

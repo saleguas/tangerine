@@ -1,2 +1,2 @@
 manga-py
-celery
+pytest

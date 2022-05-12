@@ -1,0 +1,66 @@
+version: 2.1
+orbs:
+  python: circleci/python@1.5.0
+
+executors:
+  docker-publisher:
+    environment:
+      IMAGE_NAME: saleguas/tangerine
+    docker:
+      - image: cimg/python:3.8.12
+
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.8.12
+    working_directory: ~/src/tangerine/tests/
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: Run tests
+          command: pytest
+
+  containerize:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker Image
+          command: docker build -t $IMAGE_NAME:latest .
+      - run:
+          name: Archive Docker Image
+          command: docker save -o image.tar $IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./image.tar
+
+  publish-latest:
+    executor: docker-publisher
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - setup_remote_docker
+      - run:
+          name: Load Archived Docker Image
+          command: docker load -i /tmp/workspace/image.tar
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $IMAGE_NAME:latest
+workflows:
+  build-master: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
+    jobs:
+      - build-and-test
+      - containerize:
+          requires:
+            - build-and-test
+      - publish-latest:
+          requires:
+            - containerize
