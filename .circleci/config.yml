@@ -19,11 +19,8 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
-          name: see files
-          command: manga-py
-      - run:
           name: Run tests
-          command: cd src && cd tangerine && cd tests && pytest -v
+          command: pytest -v
 
 
   containerize:
