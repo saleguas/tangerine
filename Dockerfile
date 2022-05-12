@@ -33,8 +33,8 @@ COPY ./requirements.txt /app/src/tangerine/requirements.txt
 ADD ./src /app/src
 
 ENV PYTHONPATH "${PYTHONPATH}:/app/src/tangerine/"
-ENV FLASK_APP "/app/src/tangerine/main.py"
-ENV FLASK_ENV "development"
+ENV LIBRARY_PATH="/library"
+
 EXPOSE 8501
 WORKDIR /app/src/tangerine
 RUN pip3 install -r requirements.txt
