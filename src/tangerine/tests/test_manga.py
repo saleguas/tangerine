@@ -44,7 +44,6 @@ def test_download_manga():
     download_path = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'test_dir'))
     print(download_path)
     print(os.path.abspath(filepath_real))
-    print(os.listdir(__file__))
     command = download_series(manga_url, download_path)
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE)
