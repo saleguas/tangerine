@@ -2,4 +2,5 @@ manga-py
 pytest
 streamlit
 lxml
+APScheduler
 cloudscraper==1.2.58
