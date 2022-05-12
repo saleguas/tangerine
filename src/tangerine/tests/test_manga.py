@@ -79,4 +79,4 @@ def test_update_manga():
 
 
 if __name__ == "__main__":
-    test_missing_chapters()
+    test_get_chapter_amount()

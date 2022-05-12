@@ -1,3 +1,4 @@
 manga-py
 pytest
 streamlit
+cloudscraper==1.2.58

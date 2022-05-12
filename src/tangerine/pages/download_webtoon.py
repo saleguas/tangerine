@@ -1,6 +1,7 @@
 import os
 import subprocess
 import requests
+import cloudscraper
 import time
 import streamlit as st
 import settings
@@ -22,7 +23,8 @@ def check_download_progress(total_chapters, download_path):
 
 
 def get_chapter_amount(url):
-    r = requests.get(url)
+    scraper = cloudscraper.create_scraper()
+    r = scraper.get(url)
     val = r.text
     index = val.find('<li id="episode_')
     val = val[index:]
