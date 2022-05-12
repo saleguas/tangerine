@@ -19,11 +19,12 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
-          name: Run tests
-          command: pytest -v
-      - run:
           name: see files
           command: ls -l
+      - run:
+          name: Run tests
+          command: pytest -v
+
 
   containerize:
     executor: docker-publisher
