@@ -6,6 +6,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(filepath_real), '..
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(filepath_real), '..')))
 import subprocess
 
+# make directory test_dir
+test_dir = os.path.join(os.path.dirname(filepath_real), 'test_dir')
+if os.path.exists(test_dir):
+    shutil.rmtree(test_dir)
+os.mkdir(test_dir)
 
 
 def clear_test_dir():
@@ -38,7 +43,6 @@ def test_download_manga():
     download_path = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'test_dir'))
     print(download_path)
     print(os.path.abspath(filepath_real))
-    print(os.listdir(os.path.abspath(os.path.join(os.path.dirname(filepath_real), '..', '..', '..'))))
     command = download_series(manga_url, download_path)
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE)

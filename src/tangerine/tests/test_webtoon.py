@@ -5,6 +5,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'p
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import subprocess
 
+test_dir = os.path.join(os.path.dirname(__file__), 'test_dir')
+if os.path.exists(test_dir):
+    shutil.rmtree(test_dir)
+os.mkdir(test_dir)
 
 def clear_test_dir():
     download_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'test_dir'))
