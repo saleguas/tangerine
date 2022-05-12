@@ -10,7 +10,7 @@ import subprocess
 def make_dir(test_dir):
     if os.path.exists(test_dir):
         shutil.rmtree(test_dir)
-    os.mkdir(test_dir)
+    os.mkdirs(test_dir)
 
 def clear_test_dir():
     download_path = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'test_dir'))
