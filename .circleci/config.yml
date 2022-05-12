@@ -14,8 +14,10 @@ jobs:
   build-and-test:
     docker:
       - image: cimg/python:3.8.12
+    working_directory: ~/tangerine/src/tangerine
     steps:
-      - checkout
+      - checkout:
+          - ~/tangerine/src/tangerine
       - python/install-packages:
           pkg-manager: pip
       - run:
