@@ -17,7 +17,7 @@ jobs:
     working_directory: ~/tangerine/src/tangerine
     steps:
       - checkout:
-          - ~/tangerine/src/tangerine
+          path: ~/tangerine/src/tangerine
       - python/install-packages:
           pkg-manager: pip
       - run:
