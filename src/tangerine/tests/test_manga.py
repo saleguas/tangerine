@@ -48,7 +48,7 @@ def test_download_manga():
     print(os.path.abspath(filepath_real))
     command = download_series(manga_url, download_path)
 
-    process = subprocess.Popen("ls -l", stdout=subprocess.PIPE, shell=True)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     # wait for the process to finish
     process.wait()
     # get the output
