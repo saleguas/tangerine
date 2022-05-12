@@ -47,9 +47,6 @@ def test_download_manga():
     print(download_path)
     print(os.path.abspath(filepath_real))
     command = download_series(manga_url, download_path)
-    # if on linux use the command below
-    if os.name == "posix":
-        command = command.replace("manga-py", "python3 -m manga-py")
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE)
     # wait for the process to finish
