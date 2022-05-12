@@ -7,11 +7,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(filepath_real), '..
 import subprocess
 
 # make directory test_dir
-test_dir = os.path.join(os.path.dirname(filepath_real), 'test_dir')
-if os.path.exists(test_dir):
-    shutil.rmtree(test_dir)
-os.mkdir(test_dir)
-
+def make_test_dir():
+    test_dir = os.path.join(os.path.dirname(filepath_real), 'test_dir')
+    if os.path.exists(test_dir):
+        shutil.rmtree(test_dir)
+    os.mkdir(test_dir)
 
 def clear_test_dir():
     download_path = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'test_dir'))
@@ -39,6 +39,7 @@ def test_get_chapter_amount():
 def test_download_manga():
     from download_manga import download_series
 
+    make_test_dir()
     manga_url = "https://mangasee123.com/manga/full-Moon"
     download_path = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'test_dir'))
     print(download_path)
