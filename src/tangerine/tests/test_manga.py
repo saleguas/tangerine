@@ -1,13 +1,15 @@
 import sys, os, shutil
+filepath_real = os.path.abspath(__file__)
 
 # add the ../pages to the path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'pages')))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(filepath_real), '..', 'pages')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(filepath_real), '..')))
 import subprocess
 
 
+
 def clear_test_dir():
-    download_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'test_dir'))
+    download_path = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'test_dir'))
     # remove all files in the test_dir
     for filename in os.listdir(download_path):
         file_path = os.path.join(download_path, filename)
@@ -33,9 +35,9 @@ def test_download_manga():
     from download_manga import download_series
 
     manga_url = "https://mangasee123.com/manga/full-Moon"
-    download_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'test_dir'))
+    download_path = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'test_dir'))
     print(download_path)
-    print(os.path.abspath(__file__))
+    print(os.path.abspath(filepath_real))
     command = download_series(manga_url, download_path)
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE)
@@ -51,7 +53,7 @@ def test_missing_chapters():
     from update_manga import find_missing_chapters
 
     manga_url = "https://mangasee123.com/manga/full-Moon"
-    local_url = os.path.abspath(os.path.join(os.path.dirname(__file__), 'update_manga_test_dir', "full-Moon"))
+    local_url = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'update_manga_test_dir', "full-Moon"))
     missing_chapters = find_missing_chapters(local_url, manga_url)
     print(missing_chapters)
     assert len(missing_chapters) == 3
@@ -63,7 +65,7 @@ def test_update_manga():
     from update_manga import update_series
 
     manga_url = "https://mangasee123.com/manga/full-Moon"
-    local_url = os.path.abspath(os.path.join(os.path.dirname(__file__), 'update_manga_test_dir', "full-Moon"))
+    local_url = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'update_manga_test_dir', "full-Moon"))
 
     commands = update_series(manga_url, local_url)
     for command in commands:
