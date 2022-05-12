@@ -78,7 +78,7 @@ def test_update_manga():
     commands = update_series(manga_url, local_url)
     for command in commands:
         print(command)
-        process = subprocess.Popen(command, stdout=subprocess.PIPE)
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
         # wait for the process to finish
         process.wait()
         # get the output

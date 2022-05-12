@@ -35,7 +35,7 @@ def test_download_webtoon():
     local_url = 'test_dir'
 
     command = download_webtoon_series(manga_url, local_url)
-    process = subprocess.Popen(command, stdout=subprocess.PIPE)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     process.wait()
 
     assert os.path.isdir(os.path.join(local_url, 'short-stories'))
@@ -60,7 +60,7 @@ def test_update_webtoon():
     local_url = os.path.join(os.path.dirname(__file__), 'update_webtoon_test_dir', 'short-stories')
     commands = update_series(manga_url, local_url)
     for command in commands:
-        process = subprocess.Popen(command, stdout=subprocess.PIPE)
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
         process.wait()
 
     assert len(os.listdir(local_url)) == 15
