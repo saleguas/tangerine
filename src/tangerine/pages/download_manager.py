@@ -74,7 +74,7 @@ def download_request():
             print(command)
             if not os.path.exists(series_download_path):
                 os.makedirs(series_download_path)
-            process = subprocess.Popen(command, stdout=subprocess.PIPE)
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
             process.wait()
 
 
