@@ -53,7 +53,7 @@ def test_download_manga():
     process.wait()
     # get the output
 
-    downloaded_path = os.path.join(download_path, "full-moon")
+    downloaded_path = os.path.join(download_path, "full-Moon")
     assert len(os.listdir(downloaded_path)) == 6
     clear_test_dir()
 
