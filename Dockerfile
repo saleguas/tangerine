@@ -37,7 +37,7 @@ ENV FLASK_APP "/app/src/tangerine/main.py"
 ENV FLASK_ENV "development"
 EXPOSE 8502
 WORKDIR /app/src/tangerine
-RUN pip3 install -r ../requirements.txt
+RUN pip3 install -r requirements.txt
 
 CMD ["streamlit", "run", "main.py", "--theme.base", "dark"]
 # CMD ["streamlit", "run", app.py" ]
