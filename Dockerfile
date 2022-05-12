@@ -39,5 +39,5 @@ EXPOSE 8501
 WORKDIR /app/src/tangerine
 RUN pip3 install -r requirements.txt
 
-CMD ["streamlit", "run", "main.py", "--theme.base", "dark"]
+CMD ["streamlit", "run", "main.py", "--theme.base", "dark", "--server.enableCORS", "false"]
 # CMD ["streamlit", "run", app.py" ]
