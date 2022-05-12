@@ -91,4 +91,4 @@ def test_update_manga():
 
 
 if __name__ == "__main__":
-    test_get_chapter_amount()
+    test_download_manga()
