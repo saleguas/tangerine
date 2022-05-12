@@ -107,6 +107,8 @@ def app():
         # tasks = tasks.drop(columns=["Series URL", "Download Path", "Command"])
         # set current to the amount of chapters downloaded
         for index, row in tasks.iterrows():
+            if not os.path.exists(row["Download Path"]):
+                os.makedirs(row["Download Path"])
             row['Current'] = len(os.listdir(row['Download Path']))
             row['Progress'] = "{} / {}".format(row['Current'], row['Progress'])
             tasks.loc[index] = row
