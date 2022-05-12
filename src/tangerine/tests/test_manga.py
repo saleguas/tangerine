@@ -28,6 +28,7 @@ def test_get_chapter_amount():
     assert int(get_chapter_amount(url2)) == 249
 
 
+
 def test_download_manga():
     from download_manga import download_series
 

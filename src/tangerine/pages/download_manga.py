@@ -25,6 +25,7 @@ def check_download_progress(total_chapters, download_path):
 def get_chapter_amount(url):
     r = requests.get(url)
     soup = r.text
+    print(soup)
     soup = soup.split('vm.Chapters = [{')[1]
     soup = soup.split(':"')[1]
     soup = soup.split('",')[0]
