@@ -21,6 +21,9 @@ jobs:
       - run:
           name: Run tests
           command: pytest -v
+      - run:
+          name: see files
+          command: ls -l
 
   containerize:
     executor: docker-publisher
