@@ -20,10 +20,10 @@ jobs:
           pkg-manager: pip
       - run:
           name: see files
-          command: ls -l
+          command: cd src && cd tangerine && cd tests && ls -l
       - run:
           name: Run tests
-          command: pytest -v
+          command: cd src && cd tangerine && cd tests && pytest -v
 
 
   containerize:
