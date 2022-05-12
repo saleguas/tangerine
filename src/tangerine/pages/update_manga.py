@@ -80,7 +80,7 @@ def update_series(manga_url, local_url, container=None):
             f.write(manga_url + ',')
             f.write(local_url + ',')
             f.write('MU,')
-            f.write(download_manga.get_chapter_amount(manga_url) + ',')
+            f.write(str(chapter_length) + ',')
             f.write(command + ',\n')
         commands.append(command)
 

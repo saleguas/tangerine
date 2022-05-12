@@ -75,11 +75,11 @@ def update_series(manga_url, local_url, container=None):
         command = format_download_command(chapter_start, chapter_length, manga_url, local_url)
         with open(settings.DOWNLOAD_QUEUE_FILE, 'a') as f:
             # series_name, series_url, download_path, download_type, total_chapters, command
-            f.write(manga_url.split('/')[-1] + ',')
+            f.write(manga_url.split('/')[-2] + ',')
             f.write(manga_url + ',')
             f.write(local_url + ',')
-            f.write('MU,')
-            f.write(str(download_webtoon.get_chapter_amount(manga_url)) + ',')
+            f.write('WU,')
+            f.write(str(chapter_length) + ',')
             f.write(command + ',\n')
         commands.append(command)
     return commands
