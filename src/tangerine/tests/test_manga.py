@@ -8,7 +8,7 @@ import subprocess
 
 # make directory test_dir
 def make_test_dir():
-    test_dir = os.path.join(os.path.dirname(filepath_real), 'test_dir')
+    test_dir = os.path.abspath(os.path.join(os.path.dirname(filepath_real), 'test_dir'))
     if os.path.exists(test_dir):
         shutil.rmtree(test_dir)
     os.mkdir(test_dir)
