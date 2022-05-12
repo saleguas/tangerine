@@ -20,7 +20,7 @@ jobs:
           pkg-manager: pip
       - run:
           name: see files
-          command: cd src && cd tangerine && cd tests && pwd && ls -l
+          command: cd /usr/local/bin/python && ls -l
       - run:
           name: Run tests
           command: cd src && cd tangerine && cd tests && pytest -v
