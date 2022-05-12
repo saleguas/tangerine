@@ -34,6 +34,8 @@ def test_download_manga():
 
     manga_url = "https://mangasee123.com/manga/full-Moon"
     download_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'test_dir'))
+    print(download_path)
+    print(os.listdir(os.path.abspath(__file__)))
     command = download_series(manga_url, download_path)
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE)
